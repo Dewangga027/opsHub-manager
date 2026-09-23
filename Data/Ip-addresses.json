@@ -1,0 +1,17 @@
+[
+    {
+        "address": "192.168.137.200",
+        "machineName": "Raspberry Pi 5",
+        "hostname": "pi5server",
+        "type": "Raspberry Pi",
+        "subnet": "192.168.137.200/24",
+        "hardware": "Raspberry Pi",
+        "software": "Raspberry Pi OS",
+        "area": "Laptop Ethernet",
+        "line": "",
+        "floor": "",
+        "machine": "",
+        "project": "",
+        "status": "OK"
+    }
+]
