@@ -1,0 +1,154 @@
+@model OpsHub.ViewModels.DashboardViewModel
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="page-header">
+    <div>
+        <h1>Dashboard</h1>
+        <p>Inventory, infrastructure, and operational overview.</p>
+    </div>
+    <div class="page-actions">
+        <button class="btn btn-outline-secondary">
+            <i class="bi bi-download me-1"></i> Export
+        </button>
+        <button class="btn btn-dark">
+            <i class="bi bi-plus-lg me-1"></i> Add
+        </button>
+    </div>
+</div>
+
+<section class="metrics">
+    <div class="metric">
+        <div class="metric-label">Total Assets</div>
+        <div class="metric-value">@Model.TotalAssets</div>
+    </div>
+    <div class="metric">
+        <div class="metric-label">Available</div>
+        <div class="metric-value">@Model.AvailableAssets</div>
+    </div>
+    <div class="metric">
+        <div class="metric-label">On Loan</div>
+        <div class="metric-value">@Model.LoanedAssets</div>
+    </div>
+    <div class="metric">
+        <div class="metric-label">Low Stock</div>
+        <div class="metric-value text-danger">@Model.LowStockItems</div>
+    </div>
+</section>
+
+<div class="dashboard-grid">
+    <section class="dashboard-section">
+        <div class="section-header">
+            <div>
+                <h2>Needs attention</h2>
+                <p>Issues requiring action.</p>
+            </div>
+        </div>
+        <div class="attention-list">
+            @foreach (var alert in Model.AttentionItems)
+            {
+                <div class="attention-item">
+                    <div class="attention-indicator @alert.Severity"></div>
+                    <div class="attention-content">
+                        <div class="attention-meta">@alert.Type</div>
+                        <strong>@alert.Title</strong>
+                        <p>@alert.Description</p>
+                    </div>
+                    <button class="btn btn-sm btn-light">View</button>
+                </div>
+            }
+        </div>
+    </section>
+
+    <section class="dashboard-section">
+        <div class="section-header">
+            <div>
+                <h2>Maintenance</h2>
+                <p>Upcoming maintenance schedule.</p>
+            </div>
+        </div>
+        @foreach (var maintenance in Model.MaintenanceItems)
+        {
+            <div class="maintenance-row">
+                <div>
+                    <strong>@maintenance.AssetName</strong>
+                    <div class="text-secondary small">Maintenance</div>
+                </div>
+                <div>
+                    @if (maintenance.IsOverdue)
+                    {
+                        <span class="badge text-bg-danger">Overdue</span>
+                    }
+                    else if (maintenance.DueDate.Date == DateTime.Today)
+                    {
+                        <span class="badge text-bg-warning">Due today</span>
+                    }
+                    else
+                    {
+                        <span class="text-secondary small">@maintenance.DueDate.ToString("dd MMM")</span>
+                    }
+                </div>
+            </div>
+        }
+    </section>
+</div>
+
+<div class="dashboard-grid dashboard-grid-wide">
+    <section class="dashboard-section">
+        <div class="section-header">
+            <div>
+                <h2>Network utilization</h2>
+                <p>Current IP address usage.</p>
+            </div>
+            <a asp-controller="Network" asp-action="Index" class="btn btn-sm btn-light">
+                View network
+            </a>
+        </div>
+        <div class="network-list">
+            @foreach (var network in Model.Networks)
+            {
+                <div class="network-row">
+                    <div class="network-info">
+                        <strong>@network.Name</strong>
+                        <span>@network.Prefix</span>
+                    </div>
+                    <div class="network-utilization">
+                        <div class="utilization-info">
+                            <span>@network.Used / @network.Total</span>
+                            <strong>@network.Percentage%</strong>
+                        </div>
+                        <div class="progress" role="progressbar">
+                            <div class="progress-bar" style="width: @network.Percentage%"></div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </section>
+
+    <section class="dashboard-section">
+        <div class="section-header">
+            <div>
+                <h2>Recent activity</h2>
+                <p>Latest changes in OpsHub.</p>
+            </div>
+        </div>
+        <div class="activity-list">
+            @foreach (var activity in Model.RecentActivities)
+            {
+                <div class="activity-row">
+                    <div class="activity-icon">
+                        <i class="bi bi-clock-history"></i>
+                    </div>
+                    <div class="activity-content">
+                        <strong>@activity.Action</strong>
+                        <p>@activity.Description</p>
+                        <span>@activity.User · @activity.Timestamp.ToString("HH:mm")</span>
+                    </div>
+                </div>
+            }
+        </div>
+    </section>
+</div>

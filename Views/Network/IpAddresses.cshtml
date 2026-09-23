@@ -1,0 +1,182 @@
+@model List<OpsHub.ViewModels.IpAddressViewModel>
+
+@{
+    ViewData["Title"] = "IP Addresses";
+}
+
+<div class="page-header">
+    <div>
+        <h1>IP Addresses</h1>
+        <p>Manage IP addresses, machines, and network status.</p>
+    </div>
+
+    <div class="page-actions">
+        <button class="btn btn-outline-secondary">
+            <i class="bi bi-upload me-1"></i> Import
+        </button>
+        <button class="btn btn-outline-secondary">
+            <i class="bi bi-download me-1"></i> Export
+        </button>
+        <button class="btn btn-dark">
+            <i class="bi bi-plus-lg me-1"></i> Add IP
+        </button>
+    </div>
+</div>
+
+<div class="ip-toolbar">
+    <div class="ip-search">
+        <i class="bi bi-search"></i>
+        <input id="ipSearch" type="search" placeholder="Search IP, machine, hardware..." autocomplete="off" />
+    </div>
+
+    <div class="d-flex gap-2">
+        <select id="typeFilter" class="form-select ip-filter">
+            <option value="">All Types</option>
+            <option value="PLC">PLC</option>
+            <option value="PC">PC</option>
+            <option value="Router">Router</option>
+        </select>
+
+        <select id="statusFilter" class="form-select ip-filter">
+            <option value="">All Status</option>
+            <option value="OK">OK</option>
+            <option value="Reserved">Reserved</option>
+            <option value="Available">Available</option>
+        </select>
+
+        <select id="screeningFilter" class="form-select ip-filter">
+            <option value="">All Screening</option>
+            <option value="Alive">Alive</option>
+            <option value="Dead">Dead</option>
+            <option value="Unknown">Unknown</option>
+        </select>
+    </div>
+</div>
+
+<div class="ip-summary">
+    <div>
+        <span>Total IP</span>
+        <strong>@Model.Count</strong>
+    </div>
+
+    <div>
+        <span>Alive</span>
+        <strong>@Model.Count(x => x.ScreeningStatus == "Alive")</strong>
+    </div>
+
+    <div>
+        <span>Dead</span>
+        <strong>@Model.Count(x => x.ScreeningStatus == "Dead")</strong>
+    </div>
+
+    <div>
+        <span>Available</span>
+        <strong>@Model.Count(x => x.Status == "Available")</strong>
+    </div>
+</div>
+
+<div class="ip-table-wrapper">
+    <table id="ipTable" class="table ip-table">
+        <thead>
+            <tr>
+                <th>IP Address</th>
+                <th>Machine Name</th>
+                <th>Type</th>
+                <th>Location</th>
+                <th>Project</th>
+                <th>Status</th>
+                <th>Screening</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var ip in Model)
+            {
+                var locationParts = new List<string>();
+
+                if (!string.IsNullOrWhiteSpace(ip.Area))
+                    locationParts.Add(ip.Area);
+
+                if (!string.IsNullOrWhiteSpace(ip.Line))
+                    locationParts.Add(ip.Line);
+
+                if (!string.IsNullOrWhiteSpace(ip.Floor))
+                    locationParts.Add($"Floor {ip.Floor}");
+
+                var location = locationParts.Count > 0
+                    ? string.Join(" / ", locationParts)
+                    : "—";
+
+                var screeningClass = ip.ScreeningStatus switch
+                {
+                    "Alive" => "alive",
+                    "Dead" => "dead",
+                    _ => "unknown"
+                };
+
+                <tr data-type="@ip.Type" data-status="@ip.Status" data-screening="@ip.ScreeningStatus">
+                    <td>
+                        <a href="#" class="ip-address-link">@ip.Address</a>
+                    </td>
+
+                    <td>
+                        @if (string.IsNullOrWhiteSpace(ip.MachineName))
+                        {
+                            <span class="text-muted">Unassigned</span>
+                        }
+                        else
+                        {
+                            <div class="machine-name">@ip.MachineName</div>
+                            @if (!string.IsNullOrWhiteSpace(ip.Hostname))
+                            {
+                                <div class="table-subtext">@ip.Hostname</div>
+                            }
+                        }
+                    </td>
+
+                    <td>
+                        @if (string.IsNullOrWhiteSpace(ip.Type))
+                        {
+                            <span class="text-muted">—</span>
+                        }
+                        else
+                        {
+                            <span class="type-badge">@ip.Type</span>
+                        }
+                    </td>
+
+                    <td>@location</td>
+
+                    <td>
+                        @if (string.IsNullOrWhiteSpace(ip.Project))
+                        {
+                            <span class="text-muted">—</span>
+                        }
+                        else
+                        {
+                            @ip.Project
+                        }
+                    </td>
+
+                    <td>
+                        <span class="status-badge @ip.Status?.ToLower()">@ip.Status</span>
+                    </td>
+
+                    <td>
+                        <span class="screening-status @screeningClass">
+                            <span class="screening-dot"></span>
+                            @ip.ScreeningStatus
+                        </span>
+                    </td>
+
+                    <td>
+                        <button class="btn btn-sm btn-light">
+                            <i class="bi bi-three-dots"></i>
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,73 @@
+<aside class="app-sidebar">
+    <div class="sidebar-header">
+        <a asp-controller="Dashboard"
+           asp-action="Index"
+           class="sidebar-brand">
+
+            <span class="brand-mark">O</span>
+            <span>OpsHub</span>
+
+        </a>
+    </div>
+
+    <nav class="sidebar-nav">
+
+        <div class="sidebar-section">
+            <div class="sidebar-label">Workspace</div>
+
+            <a asp-controller="Dashboard"
+               asp-action="Index"
+               class="sidebar-link">
+                <i class="bi bi-grid"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a asp-controller="Inventory"
+               asp-action="Index"
+               class="sidebar-link">
+                <i class="bi bi-box-seam"></i>
+                <span>Inventory</span>
+            </a>
+
+            <a asp-controller="Network"
+               asp-action="IpAddresses"
+               class="sidebar-link">
+                <i class="bi bi-diagram-3"></i>
+                <span>Network</span>
+            </a>
+
+            <a asp-controller="Devices"
+               asp-action="Index"
+               class="sidebar-link">
+                <i class="bi bi-hdd-network"></i>
+                <span>Devices</span>
+            </a>
+        </div>
+
+        <div class="sidebar-section">
+            <div class="sidebar-label">Operations</div>
+
+            <a href="#" class="sidebar-link">
+                <i class="bi bi-tools"></i>
+                <span>Maintenance</span>
+            </a>
+
+            <a asp-controller="Activity"
+               asp-action="Index"
+               class="sidebar-link">
+                <i class="bi bi-clock-history"></i>
+                <span>Activity</span>
+            </a>
+        </div>
+
+    </nav>
+
+    <div class="sidebar-footer">
+
+        <a href="#" class="sidebar-link">
+            <i class="bi bi-gear"></i>
+            <span>Settings</span>
+        </a>
+
+    </div>
+</aside>

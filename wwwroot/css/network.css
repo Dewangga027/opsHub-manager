@@ -1,0 +1,412 @@
+.ip-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+
+    margin-bottom: 18px;
+}
+
+.ip-search {
+    width: min(420px, 100%);
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 9px 12px;
+
+    background: #ffffff;
+
+    border: 1px solid var(--app-border);
+    border-radius: 8px;
+}
+
+.ip-search i {
+    color: var(--app-muted);
+    font-size: 14px;
+}
+
+.ip-search input {
+    width: 100%;
+
+    border: 0;
+    outline: 0;
+
+    background: transparent;
+
+    color: var(--app-text);
+
+    font-size: 13px;
+}
+
+.ip-search input::placeholder {
+    color: #9ca3af;
+}
+
+.ip-filter {
+    width: 150px;
+    min-width: 140px;
+
+    font-size: 13px;
+}
+
+.ip-summary {
+    display: flex;
+    align-items: stretch;
+
+    margin-bottom: 18px;
+
+    overflow: hidden;
+
+    background: #ffffff;
+
+    border: 1px solid var(--app-border);
+    border-radius: 8px;
+}
+
+.ip-summary > div {
+    flex: 1;
+
+    min-width: 120px;
+
+    padding: 15px 18px;
+
+    border-right: 1px solid var(--app-border);
+}
+
+.ip-summary > div:last-child {
+    border-right: 0;
+}
+
+.ip-summary span {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: var(--app-muted);
+
+    font-size: 11px;
+    font-weight: 500;
+
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.ip-summary strong {
+    color: var(--app-text);
+
+    font-size: 20px;
+    font-weight: 650;
+}
+
+.ip-table-wrapper {
+    width: 100%;
+
+    overflow-x: auto;
+
+    background: #ffffff;
+
+    border: 1px solid var(--app-border);
+    border-radius: 8px;
+}
+
+.ip-table {
+    width: 100%;
+    min-width: 1050px;
+
+    margin: 0;
+
+    border-collapse: separate;
+    border-spacing: 0;
+
+    font-size: 13px;
+}
+
+.ip-table thead th {
+    padding: 11px 14px;
+
+    background: #f8f9fb;
+
+    color: #6b7280;
+
+    border-bottom: 1px solid var(--app-border);
+
+    font-size: 11px;
+    font-weight: 600;
+
+    text-align: left;
+
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+
+    white-space: nowrap;
+}
+
+.ip-table tbody td {
+    padding: 13px 14px;
+
+    color: #374151;
+
+    vertical-align: middle;
+
+    border-bottom: 1px solid #eef0f2;
+}
+
+.ip-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.ip-table tbody tr:hover {
+    background: #fafbfc;
+}
+
+.ip-address-link {
+    color: #111827;
+
+    font-family:
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Monaco,
+        Consolas,
+        monospace;
+
+    font-size: 12px;
+    font-weight: 650;
+
+    text-decoration: none;
+}
+
+.ip-address-link:hover {
+    color: #000000;
+
+    text-decoration: underline;
+}
+
+.machine-name {
+    max-width: 280px;
+
+    overflow: hidden;
+
+    color: #111827;
+
+    font-weight: 550;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.table-subtext {
+    max-width: 280px;
+
+    margin-top: 2px;
+
+    overflow: hidden;
+
+    color: var(--app-muted);
+
+    font-size: 11px;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.type-badge {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 3px 7px;
+
+    background: #f3f4f6;
+
+    color: #374151;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 5px;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 4px 8px;
+
+    border-radius: 999px;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+.status-badge.ok {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.status-badge.reserved {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.status-badge.available {
+    background: #f3f4f6;
+    color: #4b5563;
+}
+
+.status-badge.problem {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.status-badge.maintenance {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.screening-status {
+    display: inline-flex;
+    align-items: center;
+
+    gap: 7px;
+
+    font-size: 12px;
+    font-weight: 500;
+
+    white-space: nowrap;
+}
+
+.screening-dot {
+    width: 7px;
+    height: 7px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #9ca3af;
+}
+
+.screening-status.alive {
+    color: #166534;
+}
+
+.screening-status.alive .screening-dot {
+    background: #22c55e;
+}
+
+.screening-status.dead {
+    color: #991b1b;
+}
+
+.screening-status.dead .screening-dot {
+    background: #ef4444;
+}
+
+.screening-status.unknown {
+    color: #6b7280;
+}
+
+.screening-status.unknown .screening-dot {
+    background: #9ca3af;
+}
+
+.ip-table .text-muted {
+    color: #9ca3af !important;
+}
+
+.ip-table .btn-light {
+    padding: 4px 7px;
+
+    background: transparent;
+
+    border: 1px solid transparent;
+
+    color: #6b7280;
+}
+
+.ip-table .btn-light:hover {
+    background: #f3f4f6;
+
+    border-color: #e5e7eb;
+
+    color: #111827;
+}
+
+
+@media (max-width: 1100px) {
+
+    .ip-toolbar {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .ip-search {
+        width: 100%;
+    }
+
+    .ip-toolbar > .d-flex {
+        width: 100%;
+
+        flex-wrap: wrap;
+    }
+
+    .ip-filter {
+        flex: 1;
+
+        min-width: 150px;
+    }
+}
+
+
+@media (max-width: 768px) {
+
+    .ip-summary {
+        display: grid;
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .ip-summary > div {
+        border-right: 0;
+        border-bottom: 1px solid var(--app-border);
+    }
+
+    .ip-summary > div:nth-child(odd) {
+        border-right: 1px solid var(--app-border);
+    }
+
+    .ip-summary > div:nth-last-child(-n + 2) {
+        border-bottom: 0;
+    }
+
+    .ip-filter {
+        width: 100%;
+        flex: none;
+    }
+}
+
+
+@media (max-width: 576px) {
+
+    .ip-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .ip-summary > div,
+    .ip-summary > div:nth-child(odd) {
+        border-right: 0;
+        border-bottom: 1px solid var(--app-border);
+    }
+
+    .ip-summary > div:last-child {
+        border-bottom: 0;
+    }
+}
