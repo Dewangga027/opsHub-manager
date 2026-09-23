@@ -121,17 +121,30 @@
                     </td>
 
                     <td>
-                        @if (string.IsNullOrWhiteSpace(ip.MachineName))
+                        @if (!string.IsNullOrWhiteSpace(ip.MachineName))
                         {
-                            <span class="text-muted">Unassigned</span>
+                            <div class="machine-name">
+                                @ip.MachineName
+                            </div>
+
+                            @if (!string.IsNullOrWhiteSpace(ip.Hostname))
+                            {
+                                <div class="table-subtext">
+                                    @ip.Hostname
+                                </div>
+                            }
+                        }
+                        else if (!string.IsNullOrWhiteSpace(ip.Hostname))
+                        {
+                            <div class="machine-name">
+                                @ip.Hostname
+                            </div>
                         }
                         else
                         {
-                            <div class="machine-name">@ip.MachineName</div>
-                            @if (!string.IsNullOrWhiteSpace(ip.Hostname))
-                            {
-                                <div class="table-subtext">@ip.Hostname</div>
-                            }
+                            <span class="text-muted">
+                                Unidentified device
+                            </span>
                         }
                     </td>
 

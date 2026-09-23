@@ -1,11 +1,12 @@
 using OpsHub.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
 // Register services
-builder.Services.AddScoped<NetworkScannerService>();
+builder.Services.AddScoped<NetworkDiscoveryService>();
 
 var app = builder.Build();
 
